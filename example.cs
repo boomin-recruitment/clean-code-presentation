@@ -39,20 +39,18 @@ public class DiscountManager
                 priceAfterDiscount = price;
                 break;
             case AccountStatus.SimpleCustomer:
-                priceAfterDiscount = price.ApplyDiscountForAccountStatus(Constants.DISCOUNT_FOR_SIMPLE_CUSTOMERS)
-                .ApplyDiscountForTimeOfHavingAccount(timeOfHavingAccountInYears);
+                priceAfterDiscount = price.ApplyDiscountForAccountStatus(Constants.DISCOUNT_FOR_SIMPLE_CUSTOMERS);
                 break;
             case AccountStatus.ValuableCustomer:
-                priceAfterDiscount = price.ApplyDiscountForAccountStatus(Constants.DISCOUNT_FOR_VALUABLE_CUSTOMERS)
-                .ApplyDiscountForTimeOfHavingAccount(timeOfHavingAccountInYears);
+                priceAfterDiscount = price.ApplyDiscountForAccountStatus(Constants.DISCOUNT_FOR_VALUABLE_CUSTOMERS);
                 break;
             case AccountStatus.MostValuableCustomer:
-                priceAfterDiscount = price.ApplyDiscountForAccountStatus(Constants.DISCOUNT_FOR_MOST_VALUABLE_CUSTOMERS)
-                .ApplyDiscountForTimeOfHavingAccount(timeOfHavingAccountInYears);
+                priceAfterDiscount = price.ApplyDiscountForAccountStatus(Constants.DISCOUNT_FOR_MOST_VALUABLE_CUSTOMERS);
                 break;
             default:
                 throw new NotImplementedException();
         }
+        priceAfterDiscount = priceAfterDiscount.ApplyDiscountForTimeOfHavingAccount(timeOfHavingAccountInYears);
         return priceAfterDiscount;
     }
 }
