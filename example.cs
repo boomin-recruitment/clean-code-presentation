@@ -1,26 +1,34 @@
+public enum AccountStatus
+{
+    NotRegistered = 1,
+    SimpleCustomer = 2,
+    ValuableCustomer = 3,
+    MostValuableCustomer = 4
+}
+
 public class DiscountManager
 {
-  public decimal ApplyDiscount(decimal price, int accountStatus, int timeOfHavingAccountInYears)
-  {
-    decimal priceAfterDiscount = 0;
-    decimal discountForLoyaltyInPercentage = (timeOfHavingAccountInYears > 5) ? (decimal)5/100 : (decimal)timeOfHavingAccountInYears/100; 
-    if (accountStatus == 1)
+    public decimal ApplyDiscount(decimal price, AccountStatus accountStatus, int timeOfHavingAccountInYears)
     {
-      priceAfterDiscount = price;
+        decimal priceAfterDiscount = 0;
+        decimal discountForLoyaltyInPercentage = (timeOfHavingAccountInYears > 5) ? (decimal)5 / 100 : (decimal)timeOfHavingAccountInYears / 100;
+
+        if (accountStatus == AccountStatus.NotRegistered)
+        {
+            priceAfterDiscount = price;
+        }
+        else if (accountStatus == AccountStatus.SimpleCustomer)
+        {
+            priceAfterDiscount = (price - (0.1m * price)) - (discountForLoyaltyInPercentage * (price - (0.1m * price)));
+        }
+        else if (accountStatus == AccountStatus.ValuableCustomer)
+        {
+            priceAfterDiscount = (0.7m * price) - (discountForLoyaltyInPercentage * (0.7m * price));
+        }
+        else if (accountStatus == AccountStatus.MostValuableCustomer)
+        {
+            priceAfterDiscount = (price - (0.5m * price)) - (discountForLoyaltyInPercentage * (price - (0.5m * price)));
+        }
+        return priceAfterDiscount;
     }
-    else if (accountStatus == 2)
-    {
-      priceAfterDiscount = (price - (0.1m * price)) - (discountForLoyaltyInPercentage * (price - (0.1m * price)));
-    }
-    else if (accountStatus == 3)
-    {
-      priceAfterDiscount = (0.7m * price) - (discountForLoyaltyInPercentage * (0.7m * price));
-    }
-    else if (accountStatus == 4)
-    {
-      priceAfterDiscount = (price - (0.5m * price)) - (discountForLoyaltyInPercentage * (price - (0.5m * price)));
-    }
- 
-    return priceAfterDiscount;
-  }
 }
